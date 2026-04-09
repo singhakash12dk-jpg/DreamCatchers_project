@@ -1800,7 +1800,7 @@ export default function App() {
           }
 
           .hero-logo-small {
-            max-width: 300px;
+            max-width: 360px;
             margin-bottom: 24px;
           }
 
@@ -1960,7 +1960,7 @@ export default function App() {
           }
 
           .hero-logo-small {
-            max-width: 220px;
+            max-width: 300px;
             margin-bottom: 16px;
           }
 
