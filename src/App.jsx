@@ -287,6 +287,8 @@ function ImageMarquee() {
     "./images/WhatsApp Image 2026-04-08 at 1.50.35 PM (1).jpeg",
     "./images/product.png",
     "./images/WhatsApp Image 2026-04-08 at 1.50.36 PM.jpeg",
+    "./images/Work.png",
+    "./images/Work01.png",
   ];
 
   const row2 = [
@@ -297,6 +299,7 @@ function ImageMarquee() {
     "./images/WhatsApp Image 2026-04-08 at 1.50.35 PM (3).jpeg",
     "./images/WhatsApp Image 2026-04-08 at 1.50.36 PM (2).jpeg",
     "./images/WhatsApp Image 2026-04-08 at 1.50.37 PM.jpeg",
+    "./images/Work02.png",
   ];
 
   const renderRow = (images, direction) => {
