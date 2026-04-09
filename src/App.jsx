@@ -69,6 +69,7 @@ function CameraController() {
 /* NAVBAR */
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll);
@@ -79,11 +80,14 @@ function Navbar() {
     <nav className={`nav ${scrolled ? "nav-scrolled" : ""}`}>
       <div className="nav-container">
         <a href="#hero" className="nav-brand">DreamCatcher Studio</a>
-        <div className="nav-links">
-          <a href="#work">Work</a>
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
+        <button className={`nav-toggle ${menuOpen ? "active" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <span /><span /><span />
+        </button>
+        <div className={`nav-links ${menuOpen ? "nav-open" : ""}`}>
+          <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
+          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </div>
       </div>
     </nav>
@@ -741,6 +745,38 @@ export default function App() {
           width: 100%;
         }
 
+        .nav-toggle {
+          display: none;
+          flex-direction: column;
+          gap: 5px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 4px;
+          z-index: 1001;
+        }
+
+        .nav-toggle span {
+          display: block;
+          width: 24px;
+          height: 2px;
+          background: #fff;
+          border-radius: 2px;
+          transition: all 0.3s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(5px, -5px);
+        }
+
         /* HERO */
         .hero {
           height: 100vh;
@@ -761,8 +797,9 @@ export default function App() {
         }
 
         .hero-logo-small {
-          width: 1200px;
-          height: 1000px;
+          width: 100%;
+          max-width: 500px;
+          height: auto;
           object-fit: contain;
           margin-bottom: 40px;
           filter: drop-shadow(0 0 60px rgba(255,140,0,0.15));
@@ -813,22 +850,11 @@ export default function App() {
           transform: translateY(0);
         }
 
-        .hero-desc {
-          font-size: 17px;
-          font-weight: 300;
-          line-height: 1.8;
-          color: rgba(255,255,255,0.55);
-          max-width: 600px;
-          margin-bottom: 50px;
-          min-height: 60px;
-          transition: opacity 0.4s ease;
-        }
-
         .hero-cta {
           display: flex;
           gap: 20px;
           align-items: center;
-          margin-top: -540px;
+          margin-top: 20px;
         }
 
         .btn-primary {
@@ -1682,8 +1708,7 @@ export default function App() {
 
         @media (max-width: 1024px) {
           .hero-logo-small {
-            width: 700px;
-            height: 600px;
+            max-width: 400px;
           }
 
           .hero-word {
@@ -1692,10 +1717,6 @@ export default function App() {
 
           .hero-word-container {
             height: 100px;
-          }
-
-          .hero-cta {
-            margin-top: -320px;
           }
 
           .section-heading,
@@ -1736,38 +1757,67 @@ export default function App() {
             letter-spacing: 1px;
           }
 
+          .nav-toggle {
+            display: flex;
+          }
+
           .nav-links {
-            gap: 24px;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            max-width: 300px;
+            height: 100vh;
+            height: 100dvh;
+            background: rgba(10,10,10,0.98);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            transition: right 0.4s cubic-bezier(0.16,1,0.3,1);
+            z-index: 1000;
+          }
+
+          .nav-links.nav-open {
+            right: 0;
           }
 
           .nav-links a {
-            font-size: 11px;
-            letter-spacing: 1.5px;
+            font-size: 16px;
+            letter-spacing: 3px;
+          }
+
+          .nav-links a::after {
+            display: none;
           }
 
           .hero {
             padding: 0 24px;
+            min-height: 100vh;
+            min-height: 100dvh;
           }
 
           .hero-logo-small {
-            width: 420px;
-            height: 360px;
+            max-width: 300px;
             margin-bottom: 24px;
           }
 
           .hero-word {
-            font-size: 52px;
+            font-size: 48px;
           }
 
           .hero-word-container {
-            height: 70px;
+            height: 65px;
             margin-bottom: 20px;
           }
 
           .hero-cta {
-            margin-top: -180px;
             flex-direction: column;
             gap: 14px;
+            width: 100%;
+            max-width: 320px;
           }
 
           .btn-primary, .btn-outline {
@@ -1790,7 +1840,7 @@ export default function App() {
           }
 
           .showreel-text {
-            font-size: 40px;
+            font-size: 36px;
             gap: 16px;
           }
 
@@ -1811,16 +1861,22 @@ export default function App() {
           .section-heading,
           .about-heading,
           .contact-heading {
-            font-size: 34px;
+            font-size: 32px;
           }
 
           .about-text {
             font-size: 15px;
+            line-height: 1.8;
           }
 
           .marquee-item {
             width: 260px;
             height: 180px;
+          }
+
+          .marquee-fade-left,
+          .marquee-fade-right {
+            width: 80px;
           }
 
           .work-section {
@@ -1853,7 +1909,7 @@ export default function App() {
           }
 
           .cta-heading {
-            font-size: 36px;
+            font-size: 34px;
           }
 
           .contact-section {
@@ -1890,38 +1946,41 @@ export default function App() {
         }
 
         @media (max-width: 480px) {
-          .nav-links {
-            gap: 16px;
+          .nav {
+            padding: 14px 16px;
           }
 
-          .nav-links a {
-            font-size: 10px;
-            letter-spacing: 1px;
+          .nav-brand {
+            font-size: 12px;
+            letter-spacing: 0.5px;
+          }
+
+          .hero {
+            padding: 0 16px;
           }
 
           .hero-logo-small {
-            width: 280px;
-            height: 240px;
+            max-width: 220px;
             margin-bottom: 16px;
           }
 
           .hero-word {
-            font-size: 36px;
+            font-size: 34px;
             letter-spacing: -1px;
           }
 
           .hero-word-container {
-            height: 50px;
+            height: 48px;
             margin-bottom: 16px;
           }
 
-          .hero-cta {
-            margin-top: -100px;
+          .btn-primary, .btn-outline {
+            padding: 14px 24px;
+            font-size: 11px;
           }
 
-          .btn-primary, .btn-outline {
-            padding: 14px 28px;
-            font-size: 11px;
+          .hero-tagline-section {
+            padding: 30px 16px 20px;
           }
 
           .hero-tagline-text {
@@ -1929,9 +1988,13 @@ export default function App() {
             line-height: 1.7;
           }
 
+          .showreel-section {
+            padding: 30px 16px 40px;
+          }
+
           .showreel-text {
-            font-size: 28px;
-            gap: 12px;
+            font-size: 26px;
+            gap: 10px;
           }
 
           .showreel-play-icon {
@@ -1944,20 +2007,55 @@ export default function App() {
             height: 16px;
           }
 
+          .showreel-video-wrap {
+            border-radius: 12px;
+          }
+
+          .about-section {
+            padding: 60px 16px;
+          }
+
           .section-heading,
           .about-heading,
           .contact-heading {
-            font-size: 28px;
+            font-size: 26px;
           }
 
           .section-heading {
             margin-bottom: 40px;
           }
 
+          .about-text {
+            font-size: 14px;
+          }
+
+          .marquee-section {
+            padding: 40px 0;
+          }
+
           .marquee-item {
             width: 200px;
             height: 140px;
             border-radius: 10px;
+          }
+
+          .marquee-fade-left,
+          .marquee-fade-right {
+            width: 40px;
+          }
+
+          .work-section {
+            padding: 60px 16px;
+          }
+
+          .section-label {
+            font-size: 10px;
+            letter-spacing: 3px;
+            padding-left: 28px;
+          }
+
+          .section-label::before {
+            width: 18px;
           }
 
           .project-card-image {
@@ -1968,6 +2066,23 @@ export default function App() {
             aspect-ratio: 4 / 3;
           }
 
+          .project-card-overlay {
+            padding: 20px;
+          }
+
+          .project-card-title {
+            font-size: 18px;
+          }
+
+          .project-tag {
+            font-size: 9px;
+            padding: 4px 10px;
+          }
+
+          .services-section {
+            padding: 60px 16px;
+          }
+
           .service-content {
             padding: 24px;
           }
@@ -1976,8 +2091,16 @@ export default function App() {
             font-size: 18px;
           }
 
+          .service-content p {
+            font-size: 13px;
+          }
+
+          .cta-section {
+            padding: 80px 16px;
+          }
+
           .cta-heading {
-            font-size: 26px;
+            font-size: 24px;
           }
 
           .cta-section::before {
@@ -1985,19 +2108,44 @@ export default function App() {
             height: 300px;
           }
 
+          .contact-section {
+            padding: 60px 16px;
+          }
+
+          .contact-form {
+            gap: 28px;
+          }
+
           .contact-form button {
             width: 100%;
             justify-content: center;
+            padding: 18px 32px;
+          }
+
+          .map-section {
+            margin-top: 50px;
+          }
+
+          .map-embed {
+            height: 240px;
           }
 
           .footer-inner {
             grid-template-columns: 1fr;
-            padding: 40px 24px 30px;
+            padding: 40px 16px 30px;
             gap: 30px;
           }
 
           .footer-brand-col {
             grid-column: auto;
+          }
+
+          .footer-bottom-inner {
+            padding: 16px;
+          }
+
+          .footer-bottom span {
+            font-size: 11px;
           }
         }
 `}</style>
