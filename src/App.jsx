@@ -138,9 +138,6 @@ function Hero() {
           <a href="#contact" className="btn-outline">Get In Touch</a>
         </div>
       </div>
-      <div className="hero-scroll-line">
-        <div className="scroll-line-inner"></div>
-      </div>
     </section>
   );
 }
@@ -475,8 +472,65 @@ function Services() {
 }
 
 /* CTA SECTION */
+/* TEAM PAGE - FULL SCREEN */
+function TeamPage({ onBack, team }) {
+  const ref = useRef();
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".team-page-header", { opacity: 0, y: -30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", immediateRender: false });
+      ref.current.querySelectorAll(".team-page-card").forEach((card, i) => {
+        gsap.fromTo(card, { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.6, delay: i * 0.08, ease: "power3.out", immediateRender: false });
+      });
+    }, ref);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <div className="team-page-container" ref={ref}>
+      <div className="team-page-header">
+        <button className="team-page-back-btn" onClick={onBack}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+          </svg>
+          Back
+        </button>
+        <div className="team-page-title">
+          <h1>OUR TEAM</h1>
+          <p className="team-page-subtitle">Meet the talented individuals behind DreamCatcher Studio</p>
+        </div>
+      </div>
+
+      <div className="team-page-grid">
+        {team.map((member, i) => (
+          <div key={i} className="team-page-card">
+            <div className="team-page-img-wrap">
+              <img src={member.img} alt={member.name} />
+              <div className="team-page-img-overlay"></div>
+            </div>
+            <div className="team-page-content">
+              <h2 className="team-page-name">{member.name}</h2>
+              <span className="team-page-role">{member.role}</span>
+              <div className="team-page-responsibilities">
+                <h4>Responsibilities</h4>
+                <ul>
+                  {member.responsibilities.map((resp, j) => (
+                    <li key={j}>{resp}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* TEAM / OUR ARTISTS */
-function Team() {
+function Team({ onTeamClick }) {
   const ref = useRef();
   const [activeCard, setActiveCard] = useState(null);
 
@@ -494,6 +548,110 @@ function Team() {
         "Mentoring the creative team and fostering innovation",
       ],
     },
+    {
+      name: "Shalini Singh",
+      role: "Business Development Manager",
+      img: "./images/Shalini Singh.jpeg",
+      responsibilities: [
+        "Identifying and pursuing new business opportunities and market trends",
+        "Building and maintaining strong relationships with clients and partners",
+        "Developing strategic partnerships and collaborations",
+        "Preparing proposals and pitching services to prospective clients",
+        "Managing client accounts and ensuring satisfaction",
+        "Tracking sales metrics and reporting on business growth",
+      ],
+    },
+    {
+      name: "Nishant Kumar",
+      role: "Project Manager",
+      img: "./images/Nishant Kumar.jpeg",
+      responsibilities: [
+        "Planning, scheduling, and organizing all project phases",
+        "Managing project timelines, budgets, and resources",
+        "Coordinating between creative and technical teams",
+        "Risk management and problem-solving during production",
+        "Regular client communication and status updates",
+        "Ensuring projects are delivered on time and within scope",
+      ],
+    },
+    {
+      name: "Sonali Srivastava",
+      role: "Senior Compositing/Motion Graphics Artist",
+      img: "./images/Sonali Srivastava.jpeg",
+      responsibilities: [
+        "Creating complex visual effects and motion graphics sequences",
+        "Compositing multiple layers and elements for final output",
+        "Mentoring junior artists and overseeing quality standards",
+        "Developing innovative visual solutions for client briefs",
+        "Color grading and post-production refinement",
+        "Leading the motion graphics team on high-profile projects",
+      ],
+    },
+    {
+      name: "Dinkar Rav",
+      role: "Motion Graphic Artist",
+      img: "./images/Dinkar Rav.jpeg",
+      responsibilities: [
+        "Designing and animating motion graphics for various media",
+        "Creating dynamic visual content for projection mapping",
+        "Collaborating with the creative team on visual concepts",
+        "Producing promotional videos and brand animations",
+        "Assisting with real-time rendering and live performance content",
+        "Contributing to content libraries and asset management",
+      ],
+    },
+    {
+      name: "Neha Solanki",
+      role: "3D Creative Lead",
+      img: "./images/Neha Solanki.jpeg",
+      responsibilities: [
+        "Leading the 3D design and modeling team",
+        "Conceptualizing and executing complex 3D environments and assets",
+        "Overseeing 3D asset creation from concept to final implementation",
+        "Directing spatial design for immersive installations",
+        "Optimizing 3D content for real-time rendering performance",
+        "Ensuring aesthetic and technical excellence in all 3D projects",
+      ],
+    },
+    {
+      name: "Sonia Saini",
+      role: "Creative Producer",
+      img: "./images/Sonia Saini.jpeg",
+      responsibilities: [
+        "Overseeing creative production processes from start to finish",
+        "Coordinating between departments and managing creative workflows",
+        "Ensuring brand consistency and quality across all deliverables",
+        "Managing content calendars and production schedules",
+        "Problem-solving and optimizing production efficiency",
+        "Collaborating with clients to refine creative direction",
+      ],
+    },
+    {
+      name: "Aman Kumar",
+      role: "Unreal Engine Artist",
+      img: "./images/Aman Kumar.jpeg",
+      responsibilities: [
+        "Developing real-time environments and interactive experiences in Unreal Engine",
+        "Creating high-performance 3D assets optimized for live rendering",
+        "Implementing visual effects and lighting for immersive experiences",
+        "Troubleshooting technical issues and optimizing performance",
+        "Collaborating with designers to bring concepts to life",
+        "Developing custom tools and workflows for production efficiency",
+      ],
+    },
+    {
+      name: "Akash Singh",
+      role: "3D Rigging Artist",
+      img: "./images/Akash Singh.jpeg",
+      responsibilities: [
+        "Creating and implementing complex character and prop rigging systems",
+        "Developing skeletal structures and control rigs for animation",
+        "Troubleshooting rigging issues and optimizing rig performance",
+        "Collaborating with modelers and animators for seamless workflows",
+        "Setting up deformers and constraint systems for realistic movement",
+        "Creating rigging documentation and maintaining best practices",
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -504,58 +662,21 @@ function Team() {
       gsap.fromTo(".team-heading", { y: 50, opacity: 0 },
         { scrollTrigger: { trigger: ref.current, start: "top 85%", toggleActions: "play none none none" },
           y: 0, opacity: 1, duration: 1, ease: "power3.out", immediateRender: false });
-      ref.current.querySelectorAll(".team-card").forEach((card) => {
-        gsap.fromTo(card, { y: 60, opacity: 0 },
-          { scrollTrigger: { trigger: card, start: "top 90%", toggleActions: "play none none none" },
-            y: 0, opacity: 1, duration: 1, ease: "power3.out", immediateRender: false });
-      });
     }, ref);
     return () => ctx.revert();
   }, []);
 
   return (
     <section className="team-section" id="team" ref={ref}>
-      <div>
-        <span className="section-label team-label">The Visionaries</span>
-        <h2 className="section-heading team-heading">OUR TEAM</h2>
-      </div>
-      <div className="team-grid">
-        {team.map((m, i) => (
-          <div key={i} className="team-card" onClick={() => setActiveCard(activeCard === i ? null : i)}>
-            <div className="team-img-wrap">
-              <img src={m.img} alt={m.name} />
-              <div className="team-img-overlay"></div>
-            </div>
-            <div className="team-info">
-              <h3 className="team-name">{m.name}</h3>
-              <span className="team-role">{m.role}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {activeCard !== null && (
-        <div className="team-modal-backdrop" onClick={() => setActiveCard(null)}>
-          <div className="team-modal" onClick={(e) => e.stopPropagation()}>
-            <button className="team-modal-close" onClick={() => setActiveCard(null)}>&times;</button>
-            <div className="team-modal-header">
-              <img src={team[activeCard].img} alt={team[activeCard].name} className="team-modal-img" />
-              <div>
-                <h3 className="team-modal-name">{team[activeCard].name}</h3>
-                <span className="team-modal-role">{team[activeCard].role}</span>
-              </div>
-            </div>
-            <div className="team-modal-body">
-              <h4 className="team-modal-subtitle">Roles &amp; Responsibilities</h4>
-              <ul className="team-modal-list">
-                {team[activeCard].responsibilities.map((r, j) => (
-                  <li key={j}>{r}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
+      <div className="team-section-header">
+        <div>
+          <span className="section-label team-label">The Visionaries</span>
+          <h2 className="section-heading team-heading">OUR TEAM</h2>
         </div>
-      )}
+        <button className="team-view-all-btn" onClick={() => onTeamClick(team)}>
+          View All Members →
+        </button>
+      </div>
     </section>
   );
 }
@@ -816,6 +937,9 @@ function LoadingScreen({ onFinish }) {
 
 export default function App() {
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState("home");
+  const [teamData, setTeamData] = useState(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.4,
@@ -835,32 +959,49 @@ export default function App() {
     };
   }, []);
 
+  const handleTeamClick = (team) => {
+    setTeamData(team);
+    setCurrentPage("team");
+    window.scrollTo(0, 0);
+  };
+
+  const handleBackToHome = () => {
+    setCurrentPage("home");
+    setTeamData(null);
+  };
+
   return (
     <>
       {loading && <LoadingScreen onFinish={() => setLoading(false)} />}
 
       {!loading && (
         <>
-          <Canvas
-            style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
-            camera={{ position: [0, 0, 5] }}
-          >
-            <CameraController />
-            <Particles />
-          </Canvas>
+          {currentPage === "home" ? (
+            <>
+              <Canvas
+                style={{ position: "fixed", top: 0, left: 0, zIndex: -1 }}
+                camera={{ position: [0, 0, 5] }}
+              >
+                <CameraController />
+                <Particles />
+              </Canvas>
 
-          <Navbar />
-          <Hero />
-          <HeroTagline />
-          <Showreel />
-          <About />
-          <ImageMarquee />
-          <Projects />
-          <Services />
-          <Team />
-          <CTASection />
-          <Contact />
-          <Footer />
+              <Navbar />
+              <Hero />
+              <HeroTagline />
+              <Showreel />
+              <About />
+              <ImageMarquee />
+              <Projects />
+              <Services />
+              <Team onTeamClick={handleTeamClick} />
+              <CTASection />
+              <Contact />
+              <Footer />
+            </>
+          ) : currentPage === "team" && teamData ? (
+            <TeamPage onBack={handleBackToHome} team={teamData} />
+          ) : null}
         </>
       )}
 
@@ -1138,6 +1279,8 @@ export default function App() {
           align-items: center;
           position: relative;
           padding: 0 60px;
+          padding-top: 100px;
+          min-height: 100vh;
         }
 
         .hero-content {
@@ -1153,7 +1296,7 @@ export default function App() {
            max-width: 720px;
           height: auto;
           object-fit: contain;
-          margin-bottom: 40px;
+          margin-bottom: 30px;
           filter: drop-shadow(0 0 60px rgba(255,140,0,0.15));
           animation: logoFloat 6s ease-in-out infinite, logoGlow 4s ease-in-out infinite alternate;
           perspective: 800px;
@@ -1259,28 +1402,6 @@ export default function App() {
           transform: translateY(-3px);
         }
 
-        .hero-scroll-line {
-          position: absolute;
-          bottom: 40px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 1px;
-          height: 60px;
-          overflow: hidden;
-        }
-
-        .scroll-line-inner {
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(to bottom, #FF8C00, transparent);
-          animation: scrollPulse 2.5s ease-in-out infinite;
-        }
-
-        @keyframes scrollPulse {
-          0%, 100% { opacity: 0.2; transform: scaleY(0.4) translateY(-30%); }
-          50% { opacity: 0.8; transform: scaleY(1) translateY(0); }
-        }
-
         /* SECTION LABELS */
         .section-label {
           display: inline-block;
@@ -1289,7 +1410,7 @@ export default function App() {
           letter-spacing: 4px;
           text-transform: uppercase;
           color: #FF8C00;
-          margin-bottom: 20px;
+          margin-bottom: 8px;
           position: relative;
           padding-left: 36px;
         }
@@ -1309,7 +1430,7 @@ export default function App() {
           font-weight: 700;
           letter-spacing: -1px;
           line-height: 1.15;
-          margin-bottom: 60px;
+          margin-bottom: 20px;
           text-transform: uppercase;
         }
 
@@ -1337,11 +1458,9 @@ export default function App() {
           line-height: 1.2;
           margin-bottom: 40px;
           letter-spacing: -1px;
-          background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
         }
+
+        
 
         .about-text {
           font-size: 17px;
@@ -1810,7 +1929,7 @@ export default function App() {
 
         /* TEAM SECTION */
         .team-section {
-          padding: 140px 60px;
+          padding: 80px 60px;
           max-width: 1400px;
           margin: 0 auto;
         }
@@ -2005,9 +2124,220 @@ export default function App() {
           background: #FF8C00;
         }
 
+        /* TEAM PAGE */
+        .team-page-container {
+          background: #0a0a0a;
+          min-height: 100vh;
+          padding: 100px 60px 80px;
+          max-width: 1400px;
+          margin: 0 auto;
+        }
+
+        .team-page-header {
+          display: flex;
+          align-items: flex-start;
+          gap: 60px;
+          margin-bottom: 80px;
+          position: relative;
+        }
+
+        .team-page-back-btn {
+          position: absolute;
+          top: -20px;
+          left: 0;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: none;
+          border: 1px solid rgba(255,140,0,0.3);
+          color: #FF8C00;
+          padding: 12px 24px;
+          border-radius: 50px;
+          font-size: 14px;
+          font-weight: 500;
+          letter-spacing: 1px;
+          cursor: pointer;
+          transition: all 0.4s ease;
+          text-transform: uppercase;
+          font-family: inherit;
+        }
+
+        .team-page-back-btn:hover {
+          background: rgba(255,140,0,0.1);
+          border-color: #FF8C00;
+          transform: translateX(-6px);
+        }
+
+        .team-page-title {
+          margin-top: 30px;
+        }
+
+        .team-page-title h1 {
+          font-size: 72px;
+          font-weight: 800;
+          letter-spacing: -1px;
+          margin-bottom: 20px;
+          background: linear-gradient(135deg, #FF8C00 0%, #FFB347 50%, #FF8C00 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+
+        .team-page-subtitle {
+          font-size: 18px;
+          font-weight: 300;
+          color: rgba(255,255,255,0.5);
+          max-width: 600px;
+        }
+
+        .team-page-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+          gap: 40px;
+        }
+
+        .team-page-card {
+          border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 16px;
+          overflow: hidden;
+          background: rgba(255,255,255,0.02);
+          transition: all 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+
+        .team-page-card:hover {
+          border-color: rgba(255,140,0,0.2);
+          transform: translateY(-8px);
+          box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 40px rgba(255,140,0,0.05);
+        }
+
+        .team-page-img-wrap {
+          position: relative;
+          height: 320px;
+          overflow: hidden;
+        }
+
+        .team-page-img-wrap img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .team-page-card:hover .team-page-img-wrap img {
+          transform: scale(1.08);
+        }
+
+        .team-page-img-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.95) 100%);
+        }
+
+        .team-page-content {
+          padding: 32px;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .team-page-name {
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          margin-bottom: 8px;
+          color: #fff;
+        }
+
+        .team-page-role {
+          font-size: 12px;
+          font-weight: 400;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: #FF8C00;
+          margin-bottom: 24px;
+        }
+
+        .team-page-responsibilities {
+          flex-grow: 1;
+        }
+
+        .team-page-responsibilities h4 {
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          color: rgba(255,140,0,0.8);
+          margin-bottom: 16px;
+        }
+
+        .team-page-responsibilities ul {
+          list-style: none;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .team-page-responsibilities li {
+          font-size: 14px;
+          font-weight: 300;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.6;
+          padding-left: 18px;
+          position: relative;
+        }
+
+        .team-page-responsibilities li::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 8px;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: rgba(255,140,0,0.6);
+        }
+
+        .team-section-header {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 16px;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+
+        .team-section-header > div {
+          width: 100%;
+        }
+
+        .team-view-all-btn {
+          padding: 14px 32px;
+          background: transparent;
+          border: 1px solid rgba(255,140,0,0.3);
+          border-radius: 50px;
+          color: #FF8C00;
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 2px;
+          text-transform: uppercase;
+          cursor: pointer;
+          transition: all 0.4s ease;
+          font-family: inherit;
+        }
+
+        .team-view-all-btn:hover {
+          background: rgba(255,140,0,0.1);
+          border-color: #FF8C00;
+          transform: translateY(-3px);
+        }
+
         /* CTA SECTION */
         .cta-section {
-          padding: 160px 60px;
+          padding: 80px 60px;
           text-align: center;
           position: relative;
           overflow: hidden;
