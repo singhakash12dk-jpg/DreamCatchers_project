@@ -1,0 +1,386 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  color-scheme: dark;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #eef7ff;
+  background: #020307;
+  --bg: #020307;
+  --surface: rgba(8, 12, 24, 0.82);
+  --surface-strong: rgba(8, 12, 24, 0.92);
+  --glass: rgba(9, 14, 24, 0.68);
+  --border: rgba(73, 162, 255, 0.16);
+  --text-soft: #9bb9ff;
+  --primary: #58c4ff;
+  --accent: #7a74ff;
+  --shadow: 0 32px 120px rgba(0, 0, 0, 0.22);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: radial-gradient(circle at top, rgba(71, 148, 255, 0.08), transparent 18%),
+    radial-gradient(circle at bottom right, rgba(110, 70, 255, 0.08), transparent 14%),
+    linear-gradient(180deg, #04070e 0%, #020307 100%);
+  color: #eef7ff;
+  overflow-x: hidden;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.world-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.world-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+}
+
+.section {
+  position: relative;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 96px 0;
+}
+
+.section + .section {
+  padding-top: 120px;
+}
+
+.hero {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0;
+}
+
+.hero-meta {
+  max-width: 880px;
+  padding: 0 24px;
+  display: grid;
+  gap: 28px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  color: #92baff;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.hero h1,
+.section-headline h2,
+.experience-copy h3,
+.manifesto-panel h2,
+.final-panel h2 {
+  font-size: clamp(3rem, 5vw, 5.6rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  margin: 0;
+}
+
+.hero p,
+.about-panel p,
+.orbit-node p,
+.experience-copy span,
+.final-panel p,
+.footer p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #c2d6ff;
+  max-width: 720px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(135deg, #58c4ff, #4466ff);
+  box-shadow: 0 24px 90px rgba(43, 109, 255, 0.22);
+}
+
+.btn-outline {
+  color: #dde7ff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(110, 170, 255, 0.18);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.section-grid {
+  display: grid;
+  gap: 28px;
+}
+
+.glass-panel {
+  padding: 42px;
+  border-radius: 32px;
+  background: var(--glass);
+  border: 1px solid rgba(87, 164, 255, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03), var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.glass-panel h2 {
+  margin: 24px 0 0;
+  font-size: clamp(2.8rem, 4vw, 4.4rem);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.about-panel {
+  min-height: 260px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.service-card {
+  min-height: 240px;
+}
+
+.service-card h3 {
+  margin-bottom: 18px;
+}
+
+.service-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.service-card li {
+  color: #cbd9ff;
+}
+
+.experience-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.experience-card {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+.experience-image {
+  min-height: 360px;
+  border-radius: 30px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(87, 164, 255, 0.14);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.2);
+}
+
+.experience-copy {
+  display: grid;
+  gap: 14px;
+  align-content: center;
+}
+
+.experience-copy span {
+  color: #86b7ff;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+}
+
+.experience-copy h3 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 3rem);
+  line-height: 1.08;
+}
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.timeline-step {
+  min-height: 200px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.timeline-step h3 {
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.tech-pill {
+  padding: 20px 24px;
+  border-radius: 24px;
+  border: 1px solid rgba(92, 178, 255, 0.14);
+  background: rgba(10, 16, 30, 0.85);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.14);
+  color: #d2e4ff;
+  font-weight: 600;
+  text-align: center;
+}
+
+.manifesto-panel {
+  text-align: center;
+  padding: 72px 48px;
+  border-radius: 38px;
+  background: rgba(9, 14, 24, 0.86);
+  border: 1px solid rgba(92, 182, 255, 0.12);
+}
+
+.manifesto-panel p {
+  margin: 24px auto 0;
+  max-width: 760px;
+}
+
+.final-panel {
+  text-align: center;
+  padding: 72px 48px;
+  border-radius: 42px;
+  background: rgba(9, 15, 27, 0.88);
+  border: 1px solid rgba(87, 164, 255, 0.16);
+  box-shadow: 0 40px 140px rgba(0, 0, 0, 0.22);
+}
+
+.footer {
+  padding: 72px 0 40px;
+  border-top: 1px solid rgba(89, 165, 255, 0.08);
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.footer-brand {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f1f8ff;
+  margin-bottom: 12px;
+}
+
+@media (max-width: 920px) {
+  .section {
+    width: min(100%, calc(100% - 32px));
+  }
+
+  .about-grid,
+  .services-grid,
+  .timeline-grid,
+  .tech-grid,
+  .experience-card {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-card {
+    gap: 18px;
+  }
+
+  .hero h1,
+  .section-headline h2,
+  .manifesto-panel h2,
+  .final-panel h2 {
+    font-size: clamp(2.75rem, 8vw, 4.2rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    min-height: auto;
+    padding-top: 100px;
+  }
+
+  .hero-meta {
+    gap: 20px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .eyebrow {
+    letter-spacing: 0.18em;
+  }
+}
