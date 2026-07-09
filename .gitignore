@@ -24,4 +24,5 @@ dist-ssr
 *.sw?
 
 # Large video files
-public/videos/*.mp4
+# Keep video assets available for GitHub Pages deployment
+!public/videos/*.mp4
